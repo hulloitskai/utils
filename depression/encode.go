@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// An Encoder can encode data to depression format.
+// An Encoder can encode data to depression representation.
 type Encoder struct{ dst io.Writer }
 
 // NewEncoder creates a new Encoder.

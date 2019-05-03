@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// An Decoder can encode data to depression format.
+// An Decoder can encode data to depression representation.
 type Decoder struct{ dst io.Writer }
 
 // NewDecoder creates a new Decoder.
@@ -14,14 +14,17 @@ func NewDecoder(dst io.Writer) *Decoder {
 }
 
 func (d *Decoder) Write(p []byte) (n int, err error) {
-	buf := bytes.NewBuffer(make([]byte, len(p)))
-	for i := 0; i < len(p); i += 8 {
+	var (
+		src = bytes.TrimSpace(p) // guard against excess whitespacing
+		buf = bytes.NewBuffer(make([]byte, len(p)))
+	)
+	for i := 0; i < len(src); i += 8 {
 		var b byte
 		for j := i; j < (i + 8); j++ {
 			if j != 0 {
 				b = b << 1
 			}
-			if p[j] <= 'Z' {
+			if src[j] <= 'Z' {
 				b++
 			}
 		}

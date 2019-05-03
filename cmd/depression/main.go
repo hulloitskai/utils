@@ -26,14 +26,11 @@ func main() {
 
 	// Perform translation.
 	if _, err := io.Copy(translator, os.Stdin); err != nil {
-		die(err)
+		fmt.Fprintf(os.Stderr, "Error: %v", err)
+		os.Exit(1)
 	}
-	if err := os.Stdout.Close(); err != nil {
-		die(err)
-	}
-}
 
-func die(err error) {
-	fmt.Fprintf(os.Stderr, "Error: %v", err)
-	os.Exit(1)
+	if !*decode {
+		fmt.Println() // append newline for formatting
+	}
 }
