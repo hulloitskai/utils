@@ -18,7 +18,7 @@ func (e *Encoder) Write(p []byte) (n int, err error) {
 	for _, b := range p {
 		for i, c := range "depresso" {
 			if (b>>uint(7-i))&1 == 1 {
-				buf.WriteRune(c - ('a' - 'A'))
+				buf.WriteRune(c - ('a' - 'A')) // write capital
 			} else {
 				buf.WriteRune(c)
 			}

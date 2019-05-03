@@ -16,7 +16,7 @@ func NewDecoder(dst io.Writer) *Decoder {
 func (d *Decoder) Write(p []byte) (n int, err error) {
 	var (
 		src = bytes.TrimSpace(p) // guard against excess whitespacing
-		buf = bytes.NewBuffer(make([]byte, len(p)))
+		buf = new(bytes.Buffer)
 	)
 	for i := 0; i < len(src); i += 8 {
 		var b byte
